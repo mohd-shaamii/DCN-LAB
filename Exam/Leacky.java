@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.Random;
 
-public class leacky {
+public class P2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
@@ -21,7 +21,7 @@ public class leacky {
         System.out.println("------------------------------------------------------------------------");
         
         for (int i = 1; i <= numSeconds; i++) {
-            int packetsReceived = random.nextInt(100);
+            int packetsReceived = random.nextInt(1000);
             packetsRemaining += packetsReceived;
             
             int packetsSent = Math.min(packetsRemaining, outputRate);
@@ -31,8 +31,18 @@ public class leacky {
             
             System.out.printf("%d\t\t%d\t\t%d\t\t%d\t\t%d%n", i, packetsReceived, packetsSent, packetsRemaining, packetsDropped);
         }
+        
+        while (packetsRemaining != 0) {
+            int packetsSent = Math.min(packetsRemaining, outputRate);
+            int packetsDropped = Math.max(0, packetsRemaining - bucketSize);
+            packetsRemaining = Math.min(bucketSize, packetsRemaining);
+            packetsRemaining -= packetsSent;
+            
+            System.out.printf("-\t\t-\t\t%d\t\t%d\t\t%d%n", packetsRemaining, packetsDropped);
+        }
     }
 }
+
 
 
 // Enter the bucket size: 10
